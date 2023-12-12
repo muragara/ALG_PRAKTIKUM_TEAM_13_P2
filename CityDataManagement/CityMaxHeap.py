@@ -51,7 +51,7 @@ class CityMaxHeap(AbstractCityHeap):
         """
         for i in range(amount_of_cities, index, -1):
             if(self.recursive):
-                self.heapify_up_recursive(self.get_parent_index(i))
+                self.heapify_down_recursive(self.get_parent_index(i))
             else:
                 self.heapify_down_iterative(self.get_parent_index(i))
 
