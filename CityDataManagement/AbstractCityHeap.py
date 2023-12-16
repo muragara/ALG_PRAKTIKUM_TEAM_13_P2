@@ -39,10 +39,10 @@ class AbstractCityHeap(ABC):
 
     def __init__(self, raw_city_data: List[City], recursive: bool, floyd: bool):
         self.rawCityData = raw_city_data
-        self.maximumHeapCapacity = len(self.rawCityData)  # set Maximum Heap Capacity to the amount of City Objects
+        self.maximumHeapCapacity = len(self.rawCityData) * 2  # set Maximum Heap Capacity to the amount of City Objects
         self.recursive = recursive
         self.floyd = floyd
-        self.heapStorage = []
+        self.heapStorage = [None] * self.maximumHeapCapacity
         self.insert_raw_city_data_into_heap()
 
     # ----Abstract Methods Block (Methods necessary for both a min and a max heap but with different implementations)--
@@ -100,8 +100,11 @@ class AbstractCityHeap(ABC):
         Build a Heap via Floyds Heap Construction Algorithm from a unsorted List Of Cities.
         """
         # TODO: implement me!
-        self.heapStorage = copy.deepcopy(self.rawCityData)
-        self.currentHeapLastIndex = len(self.heapStorage)
+        for i, city in enumerate(self.rawCityData):
+            new_city = City(city.name, city.country, city.population)
+            self.heapStorage[i] = new_city
+
+        self.currentHeapLastIndex = len(self.rawCityData)
         self.heapify_floyd(0, self.currentHeapLastIndex)
 
     def insert(self, city) -> None:
@@ -109,13 +112,14 @@ class AbstractCityHeap(ABC):
         Insert a single City into the Heap.
         """
         # TODO: implement me!
-        self.heapStorage.append(city)
-        self.currentHeapLastIndex += 1 
-
+        if city.name == "Hobbiton":
+            print("This should be removed!")
+        self.heapStorage[self.currentHeapLastIndex] = city
         if self.recursive:
-            self.heapify_up_recursive(self.currentHeapLastIndex - 1)
+            self.heapify_up_recursive(self.currentHeapLastIndex)
         else:
-            self.heapify_up_iterative(self.currentHeapLastIndex - 1)
+            self.heapify_up_iterative(self.currentHeapLastIndex)
+        self.currentHeapLastIndex += 1 
 
     def get_root_city(self) -> City:
         """
@@ -194,7 +198,7 @@ class AbstractCityHeap(ABC):
         We need the position of the parent in the StorageArray to extract the population from this position.
         """
         # TODO: implement me! => (index - 1) / 2
-        if self.has_parent(): 
+        if self.has_parent(index): 
             parent_index: int = self.get_parent_index(index)
             parent: City = self.heapStorage[parent_index]
             return parent.population
@@ -230,7 +234,7 @@ class AbstractCityHeap(ABC):
             False   = Not full
         """
         # TODO: implement me!
-        return self.maximumHeapCapacity == len(self.heapStorage)
+        return self.maximumHeapCapacity == self.currentHeapLastIndex
 
     def swap_nodes(self, fst_node_index, sec_node_index) -> None:
         """
