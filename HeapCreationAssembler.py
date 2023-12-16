@@ -91,8 +91,7 @@ class HeapCreationAssembler:
             data_to_visualize = self.cityDataManager.transform_raw_city_data_to_unsorted_list_of_cities(city_data)
             unsorted = True
         city_max_heap_visualizer = CityMaxHeapVisualizer()
-        city_max_heap_visualizer.create_radial_tree_visualisation(amount_of_nodes_to_create, data_to_visualize,
-                                                                  unsorted)
+        city_max_heap_visualizer.create_radial_tree_visualisation(amount_of_nodes_to_create, data_to_visualize, unsorted)
 
 
 if __name__ == '__main__':

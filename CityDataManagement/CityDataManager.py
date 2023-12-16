@@ -7,10 +7,7 @@ from CityDataManagement.ICityDataManagerAccess import ICityDataManagerAccess
 class CityDataManager(ICityDataManagerAccess):
     """
     Class with the responsibility to manage the unsorted and sorted data of the cities.
-
-
     """
-
     cityMaxHeap: CityMaxHeap = None
     cityData: List[City]
 
@@ -53,7 +50,6 @@ class CityDataManager(ICityDataManagerAccess):
         return self._convert_raw_city_data_to_city_list(city_data)
 
     def get_max_heap_as_list(self) -> List[City]:
-
         if self.cityMaxHeap is not None and len(self.cityMaxHeap.get_heap_data()) > 1:
             return self.cityMaxHeap.get_heap_data()
 

@@ -1,7 +1,7 @@
 class City:
     """
     Class with the responsibility to represent a city.
-
+    
     Param:
     name: Name of the City
     country: Country of the City
