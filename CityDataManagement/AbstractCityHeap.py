@@ -194,12 +194,10 @@ class AbstractCityHeap(ABC):
         We need the position of the parent in the StorageArray to extract the population from this position.
         """
         # TODO: implement me! => (index - 1) / 2
-        if self.has_parent:
+        if self.has_parent(): 
             parent_index: int = self.get_parent_index(index)
             parent: City = self.heapStorage[parent_index]
             return parent.population
-        else:
-            None # Anmerkung: sollte hier nicht "return None" stehen?
         
     def get_left_child_population(self, index) -> int:
         """
