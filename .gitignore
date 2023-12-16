@@ -49,4 +49,7 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# Ignore
 *.pdf
+test.py
+HeapCreationAssembler.html
